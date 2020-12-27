@@ -18,7 +18,7 @@ export class Text {
 
     const myText = str; //myText라는 변수에 내가 입력한 문자가 들어간다
     const fontWidth = 700; //문자의 너비라기보단 굵기, weight를 나타낸다.
-    const fontSize = 500; //문자의 크기 나중에 픽셀로 나타낸다
+    const fontSize = 800; //문자의 크기 나중에 픽셀로 나타낸다
     const fontName = "Hind"; // 문자의 이름, 매개 변수들을 다 const안으로 넣어서 변하지 않게 한다.
 
     this.ctx.clearRect(0, 0, stageWidth, stageHeight); //캔버스가 그려질 공간을 비운다.
