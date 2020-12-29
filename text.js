@@ -5,9 +5,8 @@ export class Text {
     this.canvas = document.createElement("canvas"); //캔버스를 만든다. 말그대로 만들기만 한다. //위쪽여백 0
     /* this.canvas.style.position = "absolute";//위치가 절대적이다. 그니까 아무런것의 영향을 받지 않는다. 
     this.canvas.style.left = "0";// 왼쪽 여백 0
-    this.canvas.style.top = "0";*/ document.body.appendChild(
-      this.canvas
-    ); //body테그의 자식태그로 canvas를 마지막에 삽입한다.
+    this.canvas.style.top = "0";*/
+    //document.body.appendChild(this.canvas); //body테그의 자식태그로 canvas를 마지막에 삽입한다.
 
     this.ctx = this.canvas.getContext("2d"); //나는 이제 캔버스에 2d그림을 그릴 것이다.
   }
@@ -41,7 +40,7 @@ export class Text {
   dotPos(density, stageWidth, stageHeight) {
     //함수를 정의한다. 매개변수로는 밀도, 캔버스 가로, 세로 길이를 가져온다.
     const imageData = this.ctx.getImageData(0, 0, stageWidth, stageHeight).data; //getImageData는 캔버스의 픽셀 데이터를 가져온다. 이 메소드는 imagedata를 반환한다.data메소드를 통해 픽셀 데이터들을 rgba값이 들어있는 어레이로 반환한다.
-    const particles = []; //입자들이 들어갈 빈 어레이다.
+    const particles = []; //입자들의 위치가 들어갈 빈 어레이다.
     let i = 0;
     let width = 0;
     let pixel;
@@ -52,11 +51,11 @@ export class Text {
       const slide = i % 2 == 0; //i가 짝수인지 판별한다.
       width = 0; //width값을 초기화 시킨다.
       if (slide == 1) {
-        width += 6; //왜 6일까??
-      }
+        width += 6;
+      } //입자들을 6픽셀씩 어긋나도록 배치하는 애들이다! 그렇게 배치하면 더 촘촘해보인다!
       for (width; width < stageWidth; width += density) {
         //캔버스의 너비에 대하여 밀도만큼 더하면서 for문을 돌린다.
-        pixel = imageData[(width + height * stageWidth) * 4 - 1]; //
+        pixel = imageData[(width + height * stageWidth) * 4 - 1]; //픽셀을 하나씩 보면서 for문을 돌린다. 밀도만큼 띄우고, *4는 imagedata가 rgba4개의 데이터를 첫번째 픽셀 0123,4567 ... 이런식으로 들어있기 때문이다.
         if (
           pixel != 0 && //픽셀이 비어있지 않고
           width > 0 && //너비가 0보다 크고
@@ -64,7 +63,7 @@ export class Text {
           height > 0 && //높이가 0보다 크고
           height < stageHeight //높이가 캔버스 높이보다 작으면
         ) {
-          particles.push({ x: width, y: height }); //x,y좌표값을 가진 입자를 어레이에 추가한다.
+          particles.push({ x: width, y: height }); //입자가 들어갈 x,y좌표값을 어레이에 추가한다.
         }
       }
     }
